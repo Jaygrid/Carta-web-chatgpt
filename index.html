@@ -2,52 +2,83 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Carta · El Bizarro</title>
+<title>Carta · Restaurante El Bizarro</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
+  font-family:'Segoe UI', Arial, sans-serif;
   background:#f4f4f4;
   margin:0;
   color:#222;
 }
-  
 header {
   background:#111;
   color:#fff;
-  padding:25px 15px;
+  padding:20px 15px 45px;
   text-align:center;
+  position:relative;
 }
 header h1 { margin:0; font-weight:600; letter-spacing:1px; }
-header p { margin:6px 0 0; font-size:0.85em; color:#ccc; }
+header .desc {
+  font-size:0.8em;
+  color:#ccc;
+  margin-top:10px;
+  line-height:1.4;
+}
 
-.buttons {
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
-  padding:15px;
-}
-.buttons button {
-  flex:0 0 auto;
-  background:#fff;
-  border:none;
-  border-radius:25px;
-  padding:10px 18px;
-  font-size:0.9em;
-  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+.menu-toggle {
+  position:absolute;
+  left:15px;
+  bottom:-18px;
+  background:#e6e6e6;
+  color:#111;
+  padding:10px 20px;
+  border-radius:8px;
+  font-size:0.95em;
+  font-weight:600;
   cursor:pointer;
-  transition:all 0.25s ease;
+  box-shadow:0 4px 10px rgba(0,0,0,0.25);
 }
-.buttons button.active,
-.buttons button:hover {
+
+.container {
+  display:flex;
+}
+
+.menu-side {
+  width:100px;
   background:#111;
+  display:flex;
+  flex-direction:column;
+  padding:30px 6px 10px;
+  transition:transform 0.3s ease;
+}
+.menu-side.hidden {
+  transform:translateX(-100%);
+}
+.menu-side button {
+  background:none;
+  border:none;
   color:#fff;
+  margin:6px 0;
+  padding:10px 6px;
+  font-size:0.8em;
+  text-align:center;
+  cursor:pointer;
+  border-radius:8px;
+  transition:background 0.2s;
+}
+.menu-side button:hover {
+  background:#222;
+}
+
+.content {
+  flex:1;
+  padding:20px;
 }
 
 .section {
   display:none;
-  padding:20px;
-  animation: fadeUp 0.4s ease both;
+  animation:fadeUp 0.4s ease both;
 }
 ul { list-style:none; padding:0; margin:0; }
 li {
@@ -63,8 +94,9 @@ footer {
   text-align:center;
   font-size:0.8em;
   color:#666;
-  padding:20px 10px;
+  padding:20px 15px;
 }
+footer .address { margin-bottom:6px; }
 
 @keyframes fadeUp {
   from { opacity:0; transform:translateY(10px); }
@@ -73,25 +105,40 @@ footer {
 </style>
 
 <script>
-function showSection(id, btn){
+function showSection(id){
   document.querySelectorAll('.section').forEach(s => s.style.display='none');
-  document.querySelectorAll('.buttons button').forEach(b => b.classList.remove('active'));
   document.getElementById(id).style.display='block';
-  btn.classList.add('active');
+  document.getElementById('menuSide').classList.add('hidden');
+}
+function toggleMenu(){
+  document.getElementById('menuSide').classList.toggle('hidden');
 }
 </script>
 </head>
 
 <body>
 <header>
-  <h1>El Bizarro</h1>
-  <p>C. Arrayanes, 2, 06010 Badajoz · Tel. 924 22 25 03</p>
+  <h1>Restaurante El Bizarro</h1>
+  <div class="desc">Dirigido por Carlos Pinto, se distingue por la calidad de sus platos, la innovación gastronómica y una buena carta de vinos. Posee dos salones con ambientes diferenciados, además de una de las mejores terrazas de Badajoz, en una zona peatonal donde se puede pasear con tranquilidad, además de aparcamiento garantizado.</div>
+  <div class="menu-toggle" onclick="toggleMenu()">Menu</div>
 </header>
 
-<div class="buttons">
-<button onclick="showSection('Tapas', this)">Tapas</button><button onclick="showSection('Entrantes_fr_os', this)">Entrantes fríos</button><button onclick="showSection('Ensaladas', this)">Ensaladas</button><button onclick="showSection('Entrantes_calientes', this)">Entrantes calientes</button><button onclick="showSection('Del_Mar', this)">Del Mar</button><button onclick="showSection('Carnes', this)">Carnes</button><button onclick="showSection('Asados', this)">Asados</button><button onclick="showSection('Infantil', this)">Infantil</button><button onclick="showSection('Postres', this)">Postres</button><button onclick="showSection('Pan', this)">Pan</button></div><div class="section" id="Tapas"><ul><li><span>Ensaladilla de gamba y pulpo al ajillo</span><span class="price">8€</span></li><li><span>Taco de Tartar de Atún con pico de gallo y Mayonesa de Wasabi (2 unid)</span><span class="price">13€</span></li><li><span>Tosta de Anchoas y Tomate (2 unid)</span><span class="price">7€</span></li><li><span>Tosta de Sardina Ahumada sobre Tartar de Tomate (2 unid)</span><span class="price">6€</span></li><li><span>Tosta de Bacalao Ahumado con tomate seco (2 unid)</span><span class="price">10€</span></li><li><span>Tosta de lomo de Atún y Mermelada de espárragos trigueros (2 unid)</span><span class="price">12€</span></li><li><span>Tosta de Solomillo con cebolla caramelizada y rulo de cabra</span><span class="price">12€</span></li><li><span>Cazuela de Callos del Mariano</span><span class="price">9€</span></li><li><span>Pan Bao con Pollo al Curry y Cebolla Morada</span><span class="price">11€</span></li><li><span>Lingote de Brioche con Carrillera, Mayonesa de Kimchi y Parmesano</span><span class="price">11€</span></li><li><span>Creps de Zapateira, Centollo y salsa de Marisco</span><span class="price">12,50€</span></li></ul></div><div class="section" id="Entrantes_fr_os"><ul><li><span>Ensaladilla gambas y Pulpo al ajillo</span><span class="price">15€</span></li><li><span>Carpaccio de Gambas y Guacamole</span><span class="price">17€</span></li><li><span>Anchoas sobre Tosta y Tomate (4 unid)</span><span class="price">12€</span></li><li><span>Anchoas sobre Tosta y Tomate (8 unid)</span><span class="price">22€</span></li><li><span>Tartar de Atún Rojo con Guacamole</span><span class="price">25€</span></li><li><span>Carpaccio de Ventresca de Atún rojo</span><span class="price">22€</span></li><li><span>Medallón de Foie con Mermelada de Naranja Amarga</span><span class="price">20€</span></li><li><span>Tabla de quesos (6 tipos variados)</span><span class="price">M14€ / E22€</span></li><li><span>Jamón Bellota 100% (Montesano)</span><span class="price">M12€ / E22€</span></li><li><span>Lomo Doblado Bellota (Señorío de Montanera) 100%</span><span class="price">M12€ / E22€</span></li><li><span>Queso Payoyo D.O.</span><span class="price">M12€ / E22€</span></li><li><span>Queso Ocaña en Manteca</span><span class="price">M12€ / E22€</span></li><li><span>Cremosito Torta de Tierra de Barros</span><span class="price">15€</span></li></ul></div><div class="section" id="Ensaladas"><ul><li><span>Ensalada de Brotes, Rulo de Cabra, Gambón</span><span class="price">9€</span></li><li><span>Ensalada de Perdiz Escabechada con Huevo de Codorniz</span><span class="price">10€</span></li><li><span>Ensalada de Burrata, Cherrys y pesto de Albahaca</span><span class="price">12€</span></li></ul></div><div class="section" id="Entrantes_calientes"><ul><li><span>Wok de Verduritas, Fideos de arroz y alga Wuakame</span><span class="price">15€</span></li><li><span>Bacalao Dorado</span><span class="price">M10€ / E14€</span></li><li><span>Variado de Croquetas (8 unid)</span><span class="price">14€</span></li><li><span>Torreznos de Soria</span><span class="price">15€</span></li><li><span>Boletus con Huevo Poché y Foie</span><span class="price">18€</span></li><li><span>Tartar de Atún Rojo con crujiente de arroz</span><span class="price">22€</span></li></ul></div><div class="section" id="Del_Mar"><ul><li><span>Boquerones fritos</span><span class="price">13€</span></li><li><span>Choco Frito</span><span class="price">13,50€</span></li><li><span>Pulpo a la Brasa con Patata Rota y Pimentón</span><span class="price">21€</span></li><li><span>Gamba Blanca Cocida</span><span class="price">20€</span></li><li><span>Brocheta de Rape, Choco y Gambón</span><span class="price">18€</span></li><li><span>Lomo de Bacalao extra con verduritas</span><span class="price">19€</span></li><li><span>Cazuela de Gambón y pulpo al ajillo</span><span class="price">21€</span></li><li><span>Lomo de Atún Rojo</span><span class="price">25€</span></li><li><span>Mejillones en vinagreta</span><span class="price">13€</span></li></ul></div><div class="section" id="Carnes"><ul><li><span>Hamburguesa gourmet de buey</span><span class="price">15€</span></li><li><span>Solomillo Laminado</span><span class="price">15€</span></li><li><span>Secreto ibérico a la Parrilla</span><span class="price">15€</span></li><li><span>Presa ibérica a la Parrilla</span><span class="price">18€</span></li><li><span>Lomo Bajo de Vaca Madurada 400gr</span><span class="price">27€</span></li><li><span>Lomo Alto con hueso Vaca Madurada 1Kg</span><span class="price">52€</span></li><li><span>Medallón de Solomillo de Vaca Madurada con Foie</span><span class="price">27€</span></li><li><span>Tabla de carne a la brasa</span><span class="price">50€</span></li></ul></div><div class="section" id="Asados"><ul><li><span>Codillo Asado</span><span class="price">20€</span></li><li><span>Pierna Cochinillo</span><span class="price">21€</span></li><li><span>Pierna Cordero Lechal</span><span class="price">21€</span></li><li><span>Salsa para carne: Torta</span><span class="price">None</span></li></ul></div><div class="section" id="Infantil"><ul><li><span>Nugget de Pollo con Patatas</span><span class="price">6€</span></li></ul></div><div class="section" id="Postres"><ul><li><span>Tortitas con Nutela, Helado de Kinder, Cookies Oreo y Sirope de Kinder</span><span class="price">8€</span></li><li><span>Tarta de queso al horno (sin gluten)</span><span class="price">6€</span></li><li><span>Torrija de Pan brioche y Helado de Vainilla</span><span class="price">6€</span></li><li><span>Leche Frita (sin gluten, sin lactosa)</span><span class="price">6€</span></li><li><span>Brownie de chocolate con helado de vainilla</span><span class="price">6€</span></li><li><span>Tulipa de helado de Turrón</span><span class="price">6€</span></li><li><span>Limón helado</span><span class="price">5,50€</span></li></ul></div><div class="section" id="Pan"><ul><li><span>Cesto de Pan</span><span class="price">1€</span></li><li><span>Cesto de Pan sin gluten</span><span class="price">1€</span></li></ul></div>
+<div class="container">
+  <nav class="menu-side hidden" id="menuSide">
+<button onclick="showSection('Tapas')">Tapas</button><button onclick="showSection('Entrantes_fr_os')">Entrantes fríos</button><button onclick="showSection('Ensaladas')">Ensaladas</button><button onclick="showSection('Entrantes_calientes')">Entrantes calientes</button><button onclick="showSection('Del_Mar')">Del Mar</button><button onclick="showSection('Carnes')">Carnes</button><button onclick="showSection('Asados')">Asados</button><button onclick="showSection('Infantil')">Infantil</button><button onclick="showSection('Postres')">Postres</button><button onclick="showSection('Pan')">Pan</button>
+  </nav>
+  <div class="content">
+<div class="section" id="Tapas"><ul><li><span>Ensaladilla de gamba y pulpo al ajillo</span><span class="price">8€</span></li><li><span>Taco de Tartar de Atún con pico de gallo y Mayonesa de Wasabi (2 unid)</span><span class="price">13€</span></li><li><span>Tosta de Anchoas y Tomate (2 unid)</span><span class="price">7€</span></li><li><span>Tosta de Sardina Ahumada sobre Tartar de Tomate (2 unid)</span><span class="price">6€</span></li><li><span>Tosta de Bacalao Ahumado con tomate seco (2 unid)</span><span class="price">10€</span></li><li><span>Tosta de lomo de Atún y Mermelada de espárragos trigueros (2 unid)</span><span class="price">12€</span></li><li><span>Tosta de Solomillo con cebolla caramelizada y rulo de cabra</span><span class="price">12€</span></li><li><span>Cazuela de Callos del Mariano</span><span class="price">9€</span></li><li><span>Pan Bao con Pollo al Curry y Cebolla Morada</span><span class="price">11€</span></li><li><span>Lingote de Brioche con Carrillera, Mayonesa de Kimchi y Parmesano</span><span class="price">11€</span></li><li><span>Creps de Zapateira, Centollo y salsa de Marisco</span><span class="price">12,50€</span></li></ul></div><div class="section" id="Entrantes_fr_os"><ul><li><span>Ensaladilla gambas y Pulpo al ajillo</span><span class="price">15€</span></li><li><span>Carpaccio de Gambas y Guacamole</span><span class="price">17€</span></li><li><span>Anchoas sobre Tosta y Tomate (4 unid)</span><span class="price">12€</span></li><li><span>Anchoas sobre Tosta y Tomate (8 unid)</span><span class="price">22€</span></li><li><span>Tartar de Atún Rojo con Guacamole</span><span class="price">25€</span></li><li><span>Carpaccio de Ventresca de Atún rojo</span><span class="price">22€</span></li><li><span>Medallón de Foie con Mermelada de Naranja Amarga</span><span class="price">20€</span></li><li><span>Tabla de quesos (6 tipos variados)</span><span class="price">M14€ / E22€</span></li><li><span>Jamón Bellota 100% (Montesano)</span><span class="price">M12€ / E22€</span></li><li><span>Lomo Doblado Bellota (Señorío de Montanera) 100%</span><span class="price">M12€ / E22€</span></li><li><span>Queso Payoyo D.O.</span><span class="price">M12€ / E22€</span></li><li><span>Queso Ocaña en Manteca</span><span class="price">M12€ / E22€</span></li><li><span>Cremosito Torta de Tierra de Barros</span><span class="price">15€</span></li></ul></div><div class="section" id="Ensaladas"><ul><li><span>Ensalada de Brotes, Rulo de Cabra, Gambón</span><span class="price">9€</span></li><li><span>Ensalada de Perdiz Escabechada con Huevo de Codorniz</span><span class="price">10€</span></li><li><span>Ensalada de Burrata, Cherrys y pesto de Albahaca</span><span class="price">12€</span></li></ul></div><div class="section" id="Entrantes_calientes"><ul><li><span>Wok de Verduritas, Fideos de arroz y alga Wuakame</span><span class="price">15€</span></li><li><span>Bacalao Dorado</span><span class="price">M10€ / E14€</span></li><li><span>Variado de Croquetas (8 unid)</span><span class="price">14€</span></li><li><span>Torreznos de Soria</span><span class="price">15€</span></li><li><span>Boletus con Huevo Poché y Foie</span><span class="price">18€</span></li><li><span>Tartar de Atún Rojo con crujiente de arroz</span><span class="price">22€</span></li></ul></div><div class="section" id="Del_Mar"><ul><li><span>Boquerones fritos</span><span class="price">13€</span></li><li><span>Choco Frito</span><span class="price">13,50€</span></li><li><span>Pulpo a la Brasa con Patata Rota y Pimentón</span><span class="price">21€</span></li><li><span>Gamba Blanca Cocida</span><span class="price">20€</span></li><li><span>Brocheta de Rape, Choco y Gambón</span><span class="price">18€</span></li><li><span>Lomo de Bacalao extra con verduritas</span><span class="price">19€</span></li><li><span>Cazuela de Gambón y pulpo al ajillo</span><span class="price">21€</span></li><li><span>Lomo de Atún Rojo</span><span class="price">25€</span></li><li><span>Mejillones en vinagreta</span><span class="price">13€</span></li></ul></div><div class="section" id="Carnes"><ul><li><span>Hamburguesa gourmet de buey</span><span class="price">15€</span></li><li><span>Solomillo Laminado</span><span class="price">15€</span></li><li><span>Secreto ibérico a la Parrilla</span><span class="price">15€</span></li><li><span>Presa ibérica a la Parrilla</span><span class="price">18€</span></li><li><span>Lomo Bajo de Vaca Madurada 400gr</span><span class="price">27€</span></li><li><span>Lomo Alto con hueso Vaca Madurada 1Kg</span><span class="price">52€</span></li><li><span>Medallón de Solomillo de Vaca Madurada con Foie</span><span class="price">27€</span></li><li><span>Tabla de carne a la brasa</span><span class="price">50€</span></li></ul></div><div class="section" id="Asados"><ul><li><span>Codillo Asado</span><span class="price">20€</span></li><li><span>Pierna Cochinillo</span><span class="price">21€</span></li><li><span>Pierna Cordero Lechal</span><span class="price">21€</span></li><li><span>Salsa para carne: Torta</span><span class="price">None</span></li></ul></div><div class="section" id="Infantil"><ul><li><span>Nugget de Pollo con Patatas</span><span class="price">6€</span></li></ul></div><div class="section" id="Postres"><ul><li><span>Tortitas con Nutela, Helado de Kinder, Cookies Oreo y Sirope de Kinder</span><span class="price">8€</span></li><li><span>Tarta de queso al horno (sin gluten)</span><span class="price">6€</span></li><li><span>Torrija de Pan brioche y Helado de Vainilla</span><span class="price">6€</span></li><li><span>Leche Frita (sin gluten, sin lactosa)</span><span class="price">6€</span></li><li><span>Brownie de chocolate con helado de vainilla</span><span class="price">6€</span></li><li><span>Tulipa de helado de Turrón</span><span class="price">6€</span></li><li><span>Limón helado</span><span class="price">5,50€</span></li></ul></div><div class="section" id="Pan"><ul><li><span>Cesto de Pan</span><span class="price">1€</span></li><li><span>Cesto de Pan sin gluten</span><span class="price">1€</span></li></ul></div>
+  </div>
+</div>
+
 <footer>
-  Carta actualizada el Octubre 2025
+  <div class="address">C. Arrayanes, 2, 06010 Badajoz · Tel. 924 22 25 03</div>
+  <div>Carta actualizada el Octubre 2025</div>
+</footer>
+</body>
+</html>
+
 </footer>
 </body>
 </html>
